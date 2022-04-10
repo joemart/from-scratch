@@ -116,34 +116,113 @@ let num = [1,2,3]
 // console.log(num.reverse())
 
 
-// check for the longest substring without repeat 
 
-/* 
-* @param {string} s
-* @return {number}
-*/
+/**
+ * 
+ * @param {string} s
+ * @param {number} numRows
+ * @return {string}
+ * 
+ */
+ var convert = function(s, numRows) {
+    var length = s.length;
+    if (numRows == 1) return s;
+    var cycleLen = numRows * 2 - 2;
+    var aZig = [];
+    for (var i = 0; i < numRows; i++){
+        for (var j = 0; j + i < length; j=j+cycleLen){
+            // console.log(s.charAt(j + i))
+            console.log(aZig)
+            aZig.push(s.charAt(j + i));
+            if (i!=0 && i!=numRows -1 && j + cycleLen - i < length){
+                aZig.push(s.charAt(j + cycleLen - i));
+            }
+        }
+    }
+//  console.log(aZig)
+    return aZig.join("");
+};
 
-// Example 1:
+let s = "PAYPALISHIRING"
+let numRows = 3
+// console.log(convert(s,numRows))
 
-// Input: s = "abcabcbb"
-// Output: 3
-// Explanation: The answer is "abc", with the length of 3.
-// Example 2:
-
-// Input: s = "bbbbb"
-// Output: 1
-// Explanation: The answer is "b", with the length of 1.
-// Example 3:
-
-// Input: s = "pwwkew"
-// Output: 3
-// Explanation: The answer is "wke", with the length of 3.
-// Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
-
-var lengthOfLongestSubstring = function (s) {
+/**
+ * @param {string} s
+ * @param {number} numRows
+ * @return {string}
+ */
+ var convert2 = function(s, numRows) {
+    let arr = [],
+        cycle = 2*numRows - 2
     
+    if(s.length == numRows || numRows == 1) return s
+
+        for(let i = 0; i<numRows; i++)
+            for(let j=i; j<s.length; j+= cycle){
+                    arr.push(s[j])
+                    const k = j + cycle - (2 * i)
+                    console.log(arr)
+                    if(i!== 0 && i!== numRows-1 && k<s.length)
+                            arr.push(s[k])
+                }
+
+    return arr.join('')
+};
+
+// console.log(convert2(s, numRows))
+
+var reverse = function(x){
+    
+    let sign = Math.sign(x)
+    let arr = []
+
+    if (x > Math.pow(2,31) -1 || x < Math.pow(-2,31)) return 0
+
+    for(let temp = Math.abs(x); temp > 0; temp = Math.trunc(temp / 10))
+    {
+        console.log(temp)
+        arr.push(temp %10)
+    }
+
+    console.log(arr)
+    let temp = arr.shift(), result = 0
+    // for( temp = arr.shift(); arr.length !== 0; temp = arr.shift())
+    // {
+        
+    //     result = result + (temp * ( Math.pow(10,arr.length)))
+    // }
+
+    while(arr.length !== 0){
+
+        result = result + (temp * ( Math.pow(10,arr.length)))
+
+        temp = arr.shift()
+    }
+
+    console.log(result * sign)
+
+    return result * sign
 }
 
-let t = { ab : "AB" , bc : "BC"}
+// reverse(123)
 
-console.log(Object.keys(t))
+
+var reverse2 = function(x){
+
+   
+
+
+    let reverse = 0
+  for(let pop; Math.trunc(x)!==0; reverse = (reverse * 10) + pop){
+    
+    pop = Math.trunc(x%10)
+    Math.trunc(x/=10)
+    // console.log(reverse)
+  }
+    if (reverse > Math.pow(2,31) -1 || reverse < Math.pow(-2,31)) return 0
+  return reverse
+}
+ 
+console.log(reverse2(-2147483648) )
+
